@@ -22,17 +22,19 @@ public class NationalWeatherService {
         return _decoder
     }()
 
-    public static let BaseURL: URL = URL(string: "https://api.weather.gov/")!
+    public static let DefaultBaseURL: URL = URL(string: "https://api.weather.gov/")!
 
     let session: URLSession = URLSession(configuration: .ephemeral)
 
     let userAgent: String
+    let baseURL: URL
 
     /// - parameter userAgent: A User Agent is required to identify your application. This string should be contact information (e.g. website or email) in case of a security event. See [weather.gov reference](https://www.weather.gov/documentation/services-web-api). Example string: `"(myweatherapp.com, contact@myweatherapp.com)"`
     /// - precondition: `userAgent` is not an empty String.
-    public init(userAgent: String) {
+    public init(userAgent: String, baseURL: URL = DefaultBaseURL) {
         precondition(!userAgent.isEmpty, "User Agent cannot be empty per weather.gov guidelines.")
         self.userAgent = userAgent
+        self.baseURL = baseURL
     }
 
     public func loadNWS(at url: URL, then handler: @escaping GeoJSONHandler) {

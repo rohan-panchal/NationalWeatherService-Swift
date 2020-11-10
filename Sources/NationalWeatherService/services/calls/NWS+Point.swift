@@ -11,7 +11,7 @@ extension NationalWeatherService {
     public typealias PointHandler = (Result<Point, Error>) -> Void
 
     public func loadPoint(latitude: Double, longitude: Double, then handler: @escaping PointHandler) {
-        let url = NationalWeatherService.BaseURL
+        let url = baseURL
             .appendingPathComponent("points")
             .appendingPathComponent("\(latitude),\(longitude)")
 
